@@ -19,4 +19,4 @@ class Solution(object):
                 heapq.heappop(heap)
             res.append(-heap[0])
         return res
-  #time: O(nlogn) space: O(n^2)
+  #time: O(nlogn) space: O(n^3)
