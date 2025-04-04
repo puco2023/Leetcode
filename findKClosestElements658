@@ -1,0 +1,34 @@
+import heapq
+import bisect
+from collections import deque
+class Solution(object):
+    def findClosestElements(self, arr, k, x):
+
+        res = deque()
+        heap = []
+        index =bisect.bisect_left(arr, x)
+        if index<0:
+            index=0
+        if index>=len(arr):
+            index=len(arr)-1
+        if 0<index<len(arr) and abs(arr[index]-x)>abs(arr[index-1]-x):
+            index-=1
+        if index > 0 and abs(arr[index-1]-x)==abs(arr[index]-x):
+            index-=1
+        heapq.heappush(heap, (abs(x - arr[index]), index, arr[index]))
+
+        startValue = arr[index]
+        visited = set()
+        while len(res) < k:
+            _, index, val = heapq.heappop(heap)
+
+            visited.add(index)
+            if val < startValue:
+                res.appendleft(val)
+            else:
+                res.append(val)
+            if index > 0 and index - 1 not in visited:
+                heapq.heappush(heap, (abs(x - arr[index - 1]), index - 1, arr[index - 1]))
+            if index < len(arr) - 1 and index + 1 not in visited:
+                heapq.heappush(heap, (abs(x - arr[index + 1]), index + 1, arr[index + 1]))
+        return list(res)
