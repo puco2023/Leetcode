@@ -3,7 +3,7 @@ class Solution(object):
         total = sum(matchsticks)
         if total % 4 != 0:
             return False
-        length = total // 4
+        length = total / 4
         matchsticks.sort(reverse=True)  # Optimizacija
         used=[False] * len(matchsticks)
         def backtracking(i,sides,curr):
