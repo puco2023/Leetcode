@@ -1,0 +1,14 @@
+class Solution(object):
+    def nextGreaterElements(self, nums):
+        nums = nums + nums
+        stack = []
+        res = [-1] * len(nums)*2
+        for i,v in enumerate(nums):
+
+            while stack and stack[-1][0]<v:
+                res[stack[-1][1]] = v
+                stack.pop()
+            stack.append((v, i))
+        
+        return res[:len(nums)//2]
+print(Solution().nextGreaterElements([1,2,3,4,3])) 
